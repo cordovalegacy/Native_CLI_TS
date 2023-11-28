@@ -6,11 +6,10 @@
  */
 
 import {
+  ImageBackground,
   SafeAreaView,
   ScrollView,
   StatusBar,
-  StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native'
@@ -18,6 +17,8 @@ import {
 import {
   Colors
 } from 'react-native/Libraries/NewAppScreen'
+
+import { app } from './styles/app'
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark'
@@ -34,41 +35,30 @@ function App(): JSX.Element {
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={[
-            {
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            },
-            styles.screen
-          ]}>
-          <View style={[styles.screen, styles.headerContainer]}>
-            <Text style={styles.header}>Hello World</Text>
-          </View>
+        style={backgroundStyle}
+      >
+        <View style={[app.screen, { width: '100%', height: 900 }]}>
+          <ImageBackground
+            style={[app.layerBase, { position: 'absolute', zIndex: 1 }]}
+            source={require('./assets/images/layer-base.png')}
+          />
+          <ImageBackground
+            style={[app.layerMiddle, { position: 'absolute', zIndex: 10, transform: [{ translateY: 200 }] }]}
+            source={require('./assets/images/firefly.svg')}
+          />
+          <ImageBackground
+            style={[app.layerMiddle, { position: 'absolute', zIndex: 20, transform: [{ translateY: 605 }] }]}
+            source={require('./assets/images/layer-middle.png')}
+          />
+          <ImageBackground
+            style={[app.layerMiddle, { position: 'absolute', zIndex: 30, transform: [{ translateY: 625 }] }]}
+            source={require('./assets/images/layer-front.png')}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
   )
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1
-  },
-  headerContainer: {
-    backgroundColor: "#000041",
-    padding: 5,
-    borderRadius: 10,
-    width: "90%",
-    marginLeft: "5%",
-    marginTop: 10
-  },
-  header: {
-    color: "white",
-    textAlign: "center",
-    margin: 10,
-    fontSize: 20
-  }
-})
 
 export default App
